@@ -8,3 +8,7 @@
 ###> custom ###
 /.idea/
 ###< custom ###
+###> symfony/webpack-encore-pack ###
+/node_modules/
+/public/build/
+###< symfony/webpack-encore-pack ###

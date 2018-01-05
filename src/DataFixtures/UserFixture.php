@@ -23,7 +23,7 @@ class UserFixture extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i <= 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $user = new User();
             $user->setUsername($this->faker->userName);
             $user->setEmail($this->faker->email);
@@ -31,9 +31,11 @@ class UserFixture extends Fixture
             $password = $this->encoder->encodePassword($user, 'admin123');
             $user->setPassword($password);
 
+            $this->setReference('user_' . $i, $user);
+
             $manager->persist($user);
         }
-        dump($manager->);
+
         $manager->flush();
     }
 }

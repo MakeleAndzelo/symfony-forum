@@ -17,3 +17,4 @@ security:
             pattern:    ^/
             http_basic: ~
             provider: doctrine
+            anonymous: true

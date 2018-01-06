@@ -24,8 +24,6 @@ class ReplyFixture extends Fixture implements DependentFixtureInterface
             $reply = new Reply();
 
             $reply->setBody($this->faker->paragraph);
-            $reply->setCreatedAt($this->faker->dateTime);
-            $reply->setUpdatedAt($this->faker->dateTime);
             $reply->setUser(
                 $this->getReference('user_' . rand(0, 9))
             );

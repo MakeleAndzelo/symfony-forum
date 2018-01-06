@@ -25,8 +25,6 @@ class ThreadFixture extends Fixture implements DependentFixtureInterface
 
             $thread->setTitle($this->faker->sentence);
             $thread->setBody($this->faker->paragraph);
-            $thread->setCreatedAt($this->faker->dateTime);
-            $thread->setUpdatedAt($this->faker->dateTime);
             $thread->setUser($this->getReference('user_' . rand(0, 9)));
 
             $manager->persist($thread);

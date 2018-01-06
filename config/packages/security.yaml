@@ -15,6 +15,9 @@ security:
             security: false
         main:
             pattern:    ^/
-            http_basic: ~
             provider: doctrine
-            anonymous: true
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+                csrf_token_generator: security.csrf.token_manager

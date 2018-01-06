@@ -1,5 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>dsa</h1>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Forum Threads
+                </div>
+                <div class="panel-body">
+                    {% for thread in threads %}
+                        <article>
+                            <a href="{{ path('thread_show', {'slug': thread.slug}) }}">
+                                <h4>{{ thread.title }}</h4>
+                            </a>
+                            <div class="body">{{ thread.body }}</div>
+
+                            <hr>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

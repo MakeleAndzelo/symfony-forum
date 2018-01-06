@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span>{{ thread.title }}</span>
+                    <span class="pull-right">{{ thread.createdAt|date('F jS \\a\\t g:ia') }}</span>
+                </div>
+                <div class="panel-body">
+                    {{ thread.body }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            {% for reply in replies %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="#" class="">
+                            {{ reply.user.username }}
+                        </a>
+                        <span class="pull-right">
+                            {{ reply.createdAt|date("F jS \\a\\t g:ia") }}
+                        </span>
+                    </div>
+                    <div class="panel-body">
+                        {{ reply.body }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

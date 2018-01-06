@@ -9,7 +9,18 @@
 namespace App\Repository;
 
 
-class ThreadRepository
-{
+use Doctrine\ORM\EntityRepository;
 
+class ThreadRepository extends EntityRepository
+{
+    /**
+     * @return Thread[]
+     */
+    public function findAllOrderByUpdatedAt()
+    {
+        return $this->createQueryBuilder('thread')
+            ->orderBy('thread.updated_at', 'DESC')
+            ->getQuery()
+            ->execute();
+    }
 }

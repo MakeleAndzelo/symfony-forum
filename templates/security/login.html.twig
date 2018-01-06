@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Login</div>
+                <div class="panel-body">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.message }}</div>
+                    {% endif %}
+                    <form action="{{ path('login') }}" method="post">
+                        <p>
+                            <label for="username" class="control-label">Username:</label>
+                            <input type="text" id="username" name="_username" value="{{ lastUsername }}" class="form-control"/>
+                        </p>
+
+                        <p>
+                            <label for="password" class="control-label">Password:</label>
+                            <input type="password" id="password" name="_password" class="form-control"/>
+                        </p>
+
+                        <input type="hidden" name="_csrf_token"
+                               value="{{ csrf_token('authenticate') }}"
+                        >
+
+                        <p class="btn-group">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

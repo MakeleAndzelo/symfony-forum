@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ReplyRepository")
  * @ORM\Table(name="replies")
  */
 class Reply
@@ -26,11 +26,13 @@ class Reply
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Thread")
+     * @ORM\JoinColumn(name="thread_id", referencedColumnName="id")
      */
     private $thread;
 

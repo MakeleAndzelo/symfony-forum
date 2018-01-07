@@ -32,13 +32,21 @@
                         <li><a class="navbar-link" href="#">Register</a></li>
                         <li><a class="navbar-link" href="{{ path('login') }}">Login</a></li>
                     {% else %}
-                        <li><a class="navbar-link" href="/{{ path('app_logout') }}">Logout</a></li>
+                        <li><a href="{{ path('logout') }}" class="navbar-link">Logout</a></li>
                     {% endif %}
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container">
+        {% for type, flashMessages in app.session.flashbag.all() %}
+        {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">
+                {{ flashMessage|trans }}
+            </div>
+        {% endfor %}
+        {% endfor %}
+
         {% block body %}{% endblock %}
     </div>
 

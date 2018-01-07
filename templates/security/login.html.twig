@@ -10,23 +10,23 @@
                         <div class="alert alert-danger">{{ error.message }}</div>
                     {% endif %}
                     <form action="{{ path('login') }}" method="post">
-                        <p>
+                        <div class="form-group">
                             <label for="username" class="control-label">Username:</label>
                             <input type="text" id="username" name="_username" value="{{ lastUsername }}" class="form-control"/>
-                        </p>
+                        </div>
 
-                        <p>
+                        <div class="form-group">
                             <label for="password" class="control-label">Password:</label>
                             <input type="password" id="password" name="_password" class="form-control"/>
-                        </p>
+                        </div>
 
                         <input type="hidden" name="_csrf_token"
                                value="{{ csrf_token('authenticate') }}"
                         >
 
-                        <p class="btn-group">
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">Login</button>
-                        </p>
+                        </div>
                     </form>
                 </div>
             </div>

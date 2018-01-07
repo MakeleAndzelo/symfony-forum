@@ -34,7 +34,7 @@ class ThreadsController extends Controller
             $this->createNotFoundException('Thread not found');
         }
 
-        $replies = $this->getDoctrine()->getRepository(Reply::class)->findAllByThreadOrderByUpdatedAt($thread);
+        $replies = $this->getDoctrine()->getRepository(Reply::class)->findAllByThread($thread);
 
         return $this->render('thread/show.html.twig', [
            'thread' => $thread,

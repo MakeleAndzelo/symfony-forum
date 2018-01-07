@@ -32,6 +32,9 @@
                     </div>
                 </div>
             {% endfor %}
+            {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                <a href="{{ path('reply_new', {'slug': thread.slug}) }}" class="btn-sm btn-primary">Reply</a>
+            {% endif %}
         </div>
     </div>
 

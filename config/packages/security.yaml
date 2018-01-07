@@ -13,11 +13,15 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         main:
-            pattern:    ^/
+            pattern: ^/
             provider: doctrine
             anonymous: ~
             form_login:
                 login_path: login
                 check_path: login
                 csrf_token_generator: security.csrf.token_manager
+            logout:
+                path: /logout
+                target: /

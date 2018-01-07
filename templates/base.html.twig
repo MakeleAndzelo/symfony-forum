@@ -26,13 +26,22 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-content">
                 <ul class="nav navbar-nav">
+                    <li><a href="{{ path('threads_index') }}" class="navbar-link">All threads</a></li>
+                    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                        <li><a href="{{ path('thread_new') }}" class="navbar-link">New Thread</a></li>
+                    {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
                         <li><a class="navbar-link" href="#">Register</a></li>
                         <li><a class="navbar-link" href="{{ path('login') }}">Login</a></li>
                     {% else %}
-                        <li><a href="{{ path('logout') }}" class="navbar-link">Logout</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.username }}<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('logout') }}">Logout</a></li>
+                            </ul>
+                        </li>
                     {% endif %}
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -40,18 +49,19 @@
     </nav>
     <div class="container">
         {% for type, flashMessages in app.session.flashbag.all() %}
-        {% for flashMessage in flashMessages %}
-            <div class="alert alert-{{ type }}">
-                {{ flashMessage|trans }}
-            </div>
-        {% endfor %}
+            {% for flashMessage in flashMessages %}
+                <div class="alert alert-{{ type }}">
+                    {{ flashMessage|trans }}
+                </div>
+            {% endfor %}
         {% endfor %}
 
         {% block body %}{% endblock %}
     </div>
 
-        <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('assets/build/js/app.js') }}"></script>
+        <script src="{{ asset('assets/build/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

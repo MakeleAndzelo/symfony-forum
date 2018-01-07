@@ -25,3 +25,6 @@ security:
             logout:
                 path: /logout
                 target: /
+
+    access_control:
+        - { path: ^/AdminControllers, roles: ROLE_ADMIN }

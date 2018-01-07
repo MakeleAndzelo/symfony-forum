@@ -34,6 +34,10 @@
             {% endfor %}
             {% if is_granted("IS_AUTHENTICATED_FULLY") %}
                 <a href="{{ path('reply_new', {'slug': thread.slug}) }}" class="btn-sm btn-primary">Reply</a>
+            {% else %}
+                <small>
+                    <a href="{{ path('login') }}">Log in</a> to reply in this thread
+                </small>
             {% endif %}
         </div>
     </div>

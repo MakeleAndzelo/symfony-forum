@@ -30,6 +30,7 @@ class UserFixture extends Fixture
 
             $password = $this->encoder->encodePassword($user, 'admin123');
             $user->setPassword($password);
+            $user->setRoles(["ROLE_USER"]);
 
             $this->setReference('user_' . $i, $user);
 

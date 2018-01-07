@@ -16,7 +16,7 @@ Encore
 
     // uncomment if you use Sass/SCSS files
     .enableSassLoader()
-
+    .enableReactPreset()
     // uncomment for legacy applications that require $/jQuery as a global variable
     // .autoProvidejQuery()
 ;

@@ -56,11 +56,13 @@
             {% endfor %}
         {% endfor %}
 
-        {% block body %}{% endblock %}
+        <div id="root">
+            {% block body %}{% endblock %}
+        </div>
     </div>
 
         <script src="{{ asset('assets/build/js/app.js') }}"></script>
-        <script src="{{ asset('assets/build/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>

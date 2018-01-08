@@ -1,12 +1,5 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import Vue from 'vue';
 
-class HelloWorld extends Component {
-    render() {
-        return (
-            <h1>Hello world!</h1>
-        );
-    }
-}
-
-render(<HelloWorld/>, document.getElementById('hello-world-container'));
+new Vue({
+    el: "#root",
+});

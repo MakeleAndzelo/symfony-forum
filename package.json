@@ -2,9 +2,7 @@
     "devDependencies": {
         "@symfony/webpack-encore": "^0.17.0",
         "babel-preset-react": "^6.24.1",
-        "prop-types": "^15.6.0",
-        "react": "^16.2.0",
-        "react-dom": "^16.2.0"
+        "prop-types": "^15.6.0"
     },
     "license": "UNLICENSED",
     "private": true,
@@ -17,6 +15,9 @@
     "dependencies": {
         "jquery": "^3.2.1",
         "node-sass": "^4.7.2",
-        "sass-loader": "^6.0.6"
+        "sass-loader": "^6.0.6",
+        "vue": "^2.5.13",
+        "vue-loader": "^13.6.2",
+        "vue-template-compiler": "^2.5.13"
     }
 }

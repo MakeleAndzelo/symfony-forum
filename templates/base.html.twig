@@ -20,13 +20,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ path('homepage') }}">Forum</a>
+                <a class="navbar-brand" href="{{ path('threads_index') }}">Forum</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-content">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ path('threads_index') }}" class="navbar-link">All threads</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Channels<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {{ render(controller('App\\Controller\\ChannelsController::index')) }}
+                        </ul>
+                    </li>
                     {% if is_granted("IS_AUTHENTICATED_FULLY") %}
                         <li><a href="{{ path('thread_new') }}" class="navbar-link">New Thread</a></li>
                     {% endif %}

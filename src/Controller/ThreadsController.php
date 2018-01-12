@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Channel;
 use App\Entity\Reply;
 use App\Entity\Thread;
 use App\Form\ThreadType;
@@ -16,11 +17,11 @@ class ThreadsController extends Controller
 {
     /**
      * @Route("/", name="homepage")
-     * @Route("/threads", name="threads_index")
+     * @Route("/threads/", name="threads_index")
      */
     public function index()
     {
-        $threads = $this->getDoctrine()->getRepository(Thread::class)->findAll();
+        $threads = $this->getDoctrine()->getRepository(Thread::class)->findAllOrderByUpdatedAt();
 
         return $this->render('threads/index.html.twig', [
             'threads' => $threads,
@@ -28,11 +29,11 @@ class ThreadsController extends Controller
     }
 
     /**
-     * @Route("/threads/{slug}", name="thread_show")
+     * @Route("/threads/{channelSlug}/{slug}", name="thread_show")
      * @param Thread $thread
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(Thread $thread)
+    public function show(Channel $channel, Thread $thread)
     {
         if(!$thread) {
             $this->createNotFoundException('Thread not found');
@@ -42,6 +43,7 @@ class ThreadsController extends Controller
 
         return $this->render('threads/show.html.twig', [
            'thread' => $thread,
+           'channel' => $channel,
            'replies' => $replies
         ]);
     }
@@ -56,8 +58,9 @@ class ThreadsController extends Controller
     public function new(Request $request)
     {
         $form = $this->createForm(ThreadType::class);
-
+        dump($request);die;
         $form->handleRequest($request);
+
 
         if($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -70,6 +73,7 @@ class ThreadsController extends Controller
 
             return $this->redirectToRoute('thread_show', [
                'slug' => $thread->getSlug(),
+//               'channelSlug' => $thread->getChannel()->getChannelSlug(),
             ]);
         }
 

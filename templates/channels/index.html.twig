@@ -1,0 +1,3 @@
+{% for channel in channels %}
+    <li><a href="{{ path('channel_show', {'channelSlug': channel.channelSlug}) }}">{{ channel.name }}</a></li>
+{% endfor %}

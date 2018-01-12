@@ -26,6 +26,7 @@ class ThreadFixture extends Fixture implements DependentFixtureInterface
             $thread->setTitle($this->faker->sentence);
             $thread->setBody($this->faker->paragraph);
             $thread->setUser($this->getReference('user_' . rand(0, 9)));
+            $thread->setChannel($this->getReference('channel_' . rand(0, 14)));
 
             $manager->persist($thread);
 
@@ -38,7 +39,8 @@ class ThreadFixture extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-          UserFixture::class
+          ChannelFixture::class,
+          UserFixture::class,
         ];
     }
 }

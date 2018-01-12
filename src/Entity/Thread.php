@@ -58,6 +58,13 @@ class Thread
     private $updated_at;
 
     /**
+     * @var Channel $channel;
+     * @ORM\ManyToOne(targetEntity="Channel")
+     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id")
+     */
+    private $channel;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -167,5 +174,21 @@ class Thread
     public function setSlug($slug): void
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return Channel
+     */
+    public function getChannel()
+    {
+        return $this->channel;
+    }
+
+    /**
+     * @param Channel $channel
+     */
+    public function setChannel(Channel $channel): void
+    {
+        $this->channel = $channel;
     }
 }

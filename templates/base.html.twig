@@ -54,14 +54,12 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container">
-        <div id="root">
-            {% for type, flashMessages in app.session.flashbag.all() %}
-                {% for flashMessage in flashMessages %}
-                    <flash type="{{ type }}" message="{{ flashMessage }}"></flash>
-                {% endfor %}
+        {% for type, flashMessages in app.session.flashbag.all() %}
+            {% for flashMessage in flashMessages %}
+                <div class="alert alert-{{ type }}">{{ flashMessage }}</div>
             {% endfor %}
-            {% block body %}{% endblock %}
-        </div>
+        {% endfor %}
+        {% block body %}{% endblock %}
     </div>
 
         <script src="{{ asset('assets/build/js/app.js') }}"></script>

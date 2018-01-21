@@ -19,6 +19,13 @@
                         </article>
                     {% endfor %}
                 </div>
+                <div class="panel-footer">
+                    {% if threads.haveToPaginate %}
+                        <div class="navigation text-center">
+                            {{ pagerfanta(threads, 'twitter_bootstrap3_translated', {routeName: 'threads_index_paginated'}) }}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

@@ -22,11 +22,12 @@ class ChannelsController extends Controller
     }
 
     /**
-     * @Route("/threads/{channelSlug}", name="channel_show")
+     * @Route("/threads/channel/{channelSlug}", name="channel_show", defaults={"page":"1"})
+     * @Route("/threads/channel/{channelSlug}/page/{page}", name="channel_show_paginated", defaults={"page":"1"})
      * @param Channel $channel
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(Channel $channel)
+    public function show(Channel $channel, int $page)
     {
         if(!$channel) {
             $this->createNotFoundException();
@@ -34,7 +35,7 @@ class ChannelsController extends Controller
 
         $threads = $this->getDoctrine()
             ->getRepository(Thread::class)
-            ->findAllByChannelOrderByUpdatedAt($channel);
+            ->findAllByChannelOrderByUpdatedAt($channel, $page);
 
         return $this->render('channels/show.html.twig', [
             'channel' => $channel,

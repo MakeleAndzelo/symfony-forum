@@ -10,18 +10,20 @@ use App\Form\ThreadType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ThreadsController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
-     * @Route("/threads/", name="threads_index")
+     * @Route("/", name="homepage", defaults={"page":"1"})
+     * @Route("/threads", name="threads_index", defaults={"page": "1"})
+     * @Route("/threads/page/{page}", name="threads_index_paginated", defaults={"page": "1"})
      */
-    public function index()
+    public function index($page)
     {
-        $threads = $this->getDoctrine()->getRepository(Thread::class)->findAllOrderByUpdatedAt();
+        $threads = $this->getDoctrine()->getRepository(Thread::class)->findAllOrderByUpdatedAt($page);
 
         return $this->render('threads/index.html.twig', [
             'threads' => $threads,
@@ -30,6 +32,7 @@ class ThreadsController extends Controller
 
     /**
      * @Route("/threads/{channelSlug}/{slug}", name="thread_show")
+     * @param Channel $channel
      * @param Thread $thread
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -58,7 +61,6 @@ class ThreadsController extends Controller
     public function new(Request $request)
     {
         $form = $this->createForm(ThreadType::class);
-        dump($request);die;
         $form->handleRequest($request);
 
 
@@ -71,9 +73,10 @@ class ThreadsController extends Controller
             $entityManager->persist($thread);
             $entityManager->flush();
 
+            $this->addFlash('alert', 'Thread created');
             return $this->redirectToRoute('thread_show', [
                'slug' => $thread->getSlug(),
-//               'channelSlug' => $thread->getChannel()->getChannelSlug(),
+               'channelSlug' => $thread->getChannel()->getChannelSlug(),
             ]);
         }
 

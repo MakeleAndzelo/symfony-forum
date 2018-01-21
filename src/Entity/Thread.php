@@ -14,6 +14,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Thread
 {
     /**
+     * Number of threads for pagination
+     * @const THREADS_NUM
+     */
+    const THREADS_NUM = 10;
+
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")

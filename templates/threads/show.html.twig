@@ -5,7 +5,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <span>{{ thread.title }}</span>
+                    <span>{{ thread.title }} by <a href="{{ path('user_profile', {'username': thread.user.username }) }}">{{ thread.user.username }}</a></span>
                     <span class="pull-right">{{ thread.createdAt|date('F jS \\a\\t g:ia') }}</span>
                 </div>
                 <div class="panel-body">
@@ -20,7 +20,7 @@
             {% for reply in replies %}
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href="#" class="">
+                        <a href="{{ path('user_profile', {'username': reply.user.username}) }}">
                             {{ reply.user.username }}
                         </a>
                         <span class="pull-right">

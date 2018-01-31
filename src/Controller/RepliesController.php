@@ -15,16 +15,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class RepliesController extends Controller
 {
     /**
-     * @Route("/threads/{channelSlug}/{slug}/reply", name="reply_new")
+     * @Route("/channel/{channelSlug}/thread/{slug}/reply", name="reply_new")
      * @Method({"GET", "POST"})
      * @IsGranted("IS_AUTHENTICATED_FULLY")
-     * @param Channel $channel
-     * @param Thread $thread
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function new(Channel $channel, Thread $thread, Request $request)
     {
+        if(!$channel || !$thread) {
+            $this->createNotFoundException();
+        }
+
         $form = $this->createForm(ReplyType::class);
 
         $form->handleRequest($request);

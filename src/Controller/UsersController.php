@@ -3,23 +3,49 @@
 namespace App\Controller;
 
 
+use App\Entity\Reply;
 use App\Entity\Thread;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UsersController extends Controller
 {
     /**
-     * @Route("/user/{username}/threads", name="threads_by_user", defaults={"page":"1"})
-     * @Route("/user/{username}/threads/page/{page}", name="threads_by_user_paginated", defaults={"page":"1"})
+     * @Route("/user/{username}/threads", name="threads_by_user")
      */
-    public function threads(User $user, $page)
+    public function showUserThreads(Request $request, User $user)
     {
-        $threads = $this->getDoctrine()->getRepository(Thread::class)->findAllByUserOrderByUpdatedAt($user, $page);
+        if(!$user) {
+            $this->createNotFoundException();
+        }
+
+        $threads = $this->getDoctrine()
+            ->getRepository(Thread::class)
+            ->findAllByUserOrderByUpdatedAt($user, $request->query->getInt('page', 1));
 
         return $this->render('threads/index.html.twig', [
             'threads' => $threads
+        ]);
+    }
+
+    /**
+     * @Route("/user/{username}", name="user_profile")
+     */
+    public function show(User $user)
+    {
+        if(!$user) {
+            $this->createNotFoundException();
+        }
+
+        $lastReplies = $this->getDoctrine()
+            ->getRepository(Reply::class)
+            ->findAllLastUserPosts($user);
+
+        return $this->render("users/show.html.twig", [
+            'user' => $user,
+            'lastReplies' => $lastReplies,
         ]);
     }
 }

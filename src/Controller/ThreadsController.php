@@ -7,6 +7,7 @@ use App\Entity\Channel;
 use App\Entity\Reply;
 use App\Entity\Thread;
 use App\Form\ThreadType;
+use Doctrine\Common\Annotations\Annotation\Required;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,13 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ThreadsController extends Controller
 {
     /**
-     * @Route("/", name="homepage", defaults={"page":"1"})
-     * @Route("/threads", name="threads_index", defaults={"page": "1"})
-     * @Route("/threads/page/{page}", name="threads_index_paginated", defaults={"page": "1"})
+     * @Route("/", name="homepage")
+     * @Route("/threads/", name="threads_index")
      */
-    public function index($page)
+    public function index(Request $request)
     {
-        $threads = $this->getDoctrine()->getRepository(Thread::class)->findAllOrderByUpdatedAt($page);
+        $threads = $this->getDoctrine()
+            ->getRepository(Thread::class)
+            ->findAllOrderByUpdatedAt($request->query->getInt('page', 1));
 
         return $this->render('threads/index.html.twig', [
             'threads' => $threads,
@@ -32,9 +34,6 @@ class ThreadsController extends Controller
 
     /**
      * @Route("/threads/{channelSlug}/{slug}", name="thread_show")
-     * @param Channel $channel
-     * @param Thread $thread
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(Channel $channel, Thread $thread)
     {
@@ -55,8 +54,6 @@ class ThreadsController extends Controller
      * @Route("/thread", name="thread_new")
      * @Method({"GET", "POST"})
      * @IsGranted("IS_AUTHENTICATED_FULLY")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function new(Request $request)
     {

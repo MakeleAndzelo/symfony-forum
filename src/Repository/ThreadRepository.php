@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: michal
- * Date: 1/5/18
- * Time: 9:35 PM
- */
 
 namespace App\Repository;
 
@@ -19,9 +13,7 @@ use Pagerfanta\Pagerfanta;
 
 class ThreadRepository extends EntityRepository
 {
-    /**
-     * @return Thread[]
-     */
+
     public function findAllOrderByUpdatedAt(int $page)
     {
         $query = $this->createQueryBuilder('thread')
@@ -32,8 +24,9 @@ class ThreadRepository extends EntityRepository
     }
 
     /**
-     * @param Channel $channel
-     * @return Thread[]
+     * @param   Channel $channel
+     * @param   int $page
+     * @return  Pagerfanta
      */
     public function findAllByChannelOrderByUpdatedAt(Channel $channel, int $page)
     {
@@ -47,8 +40,9 @@ class ThreadRepository extends EntityRepository
     }
 
     /**
-     * @param User $user
-     * @return Pagerfanta
+     * @param   User $user
+     * @param int $page
+     * @return  Pagerfanta
      */
     public function findAllByUserOrderByUpdatedAt(User $user, int $page)
     {
@@ -62,9 +56,9 @@ class ThreadRepository extends EntityRepository
     }
 
     /**
-     * @param Query $query
-     * @param int $page
-     * @return Pagerfanta
+     * @param   Query $query
+     * @param   int $page
+     * @return  Pagerfanta
      */
     private function createPaginator(Query $query, int $page)
     {

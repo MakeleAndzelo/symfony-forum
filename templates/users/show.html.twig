@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    User info
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-8">
+                            <dt>Nickname</dt>
+                            <dd>{{ user.username }}</dd>
+                            <dt>Email</dt>
+                            <dd>{{ user.email }}</dd>
+                            <dt>Join</dt>
+                            <dd>{{ user.createdAt|date() }}</dd>
+                            <dt>Threads</dt>
+                            <dd>{{ user.threads|length }}</dd>
+                            <dt>Posts</dt>
+                            <dd>{{ user.replies|length }}</dd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default user-posts">
+                <div class="panel-heading">
+                    User's last posts
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        {% for reply in lastReplies %}
+                            <a href="{{ path('thread_show', {'channelSlug': reply.thread.channel.channelSlug, 'slug': reply.thread.slug }) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{ reply.thread.title }}</h5>
+                                    <small>{{ reply.updatedAt|date() }}</small>
+                                </div>
+                                <p class="mb-1">{{ reply.body }}</p>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

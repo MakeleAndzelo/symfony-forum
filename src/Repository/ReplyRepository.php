@@ -4,6 +4,7 @@ namespace App\Repository;
 
 
 use App\Entity\Thread;
+use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 class ReplyRepository extends EntityRepository
@@ -17,6 +18,17 @@ class ReplyRepository extends EntityRepository
         return $this->createQueryBuilder('reply')
             ->where('reply.thread = :thread')
             ->setParameter(':thread', $thread)
+            ->getQuery()
+            ->execute();
+    }
+
+    function findAllLastUserPosts(User $user)
+    {
+        return $this->createQueryBuilder('reply')
+            ->where('reply.user = :user')
+            ->setParameter(':user', $user)
+            ->orderBy('reply.updated_at', 'DESC')
+            ->setMaxResults(5)
             ->getQuery()
             ->execute();
     }

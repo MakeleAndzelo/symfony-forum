@@ -39,7 +39,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
-                        <li><a class="navbar-link" href="#">Register</a></li>
+                        <li><a class="navbar-link" href="{{ path('registration') }}">Register</a></li>
                         <li><a class="navbar-link" href="{{ path('login') }}">Login</a></li>
                     {% else %}
                         <li class="dropdown">

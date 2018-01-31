@@ -6,10 +6,14 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="Email already taken")
+ * @UniqueEntity(fields="username", message="Username already taken")
  */
 class User implements UserInterface, \Serializable
 {
@@ -22,8 +26,15 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
+     * @Assert\NotBlank()
      */
     private $username;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -32,6 +43,8 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -74,6 +87,7 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->isActive = true;
+        $this->roles = ["ROLE_USER"];
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
     }
@@ -95,14 +109,14 @@ class User implements UserInterface, \Serializable
         return $this->password;
     }
 
-    public function getRoles() : array
+    public function getRoles()
     {
         return json_decode($this->roles);
     }
 
     public function setRoles(array $roles)
     {
-        $this->roles = json_encode($roles);
+        $this->roles = $roles;
     }
 
     public function eraseCredentials()
@@ -245,5 +259,19 @@ class User implements UserInterface, \Serializable
         return $this->replies;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
 
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
 }

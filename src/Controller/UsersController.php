@@ -6,9 +6,12 @@ namespace App\Controller;
 use App\Entity\Reply;
 use App\Entity\Thread;
 use App\Entity\User;
+use App\Form\UserType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UsersController extends Controller
 {
@@ -46,6 +49,34 @@ class UsersController extends Controller
         return $this->render("users/show.html.twig", [
             'user' => $user,
             'lastReplies' => $lastReplies,
+        ]);
+    }
+
+    /**
+     * @Route("/register", name="registration")
+     * @Method({"GET", "POST"})
+     */
+    public function create(Request $request, UserPasswordEncoderInterface $encoder)
+    {
+        $form = $this->createForm(UserType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $user->setPassword(
+                $encoder->encodePassword($user, $user->getPlainPassword())
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('users/create.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

@@ -5,11 +5,13 @@
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    User info
+                    <h3>{{ user.username }}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <img src="{{ asset('media/avatars/default_avatar.png') }}" alt="{{ user.username }}" class="img-responsive img-circle">
+                        </div>
                         <div class="col-md-8">
                             <dt>Nickname</dt>
                             <dd>{{ user.username }}</dd>

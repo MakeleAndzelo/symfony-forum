@@ -13,19 +13,37 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             {% for reply in replies %}
                 <div class="panel panel-default">
-                    <div class="panel-heading">
+                    <div class="panel-heading clearfix">
                         <a href="{{ path('user_profile', {'username': reply.user.username}) }}">
                             {{ reply.user.username }}
                         </a>
-                        <span class="pull-right">
-                            {{ reply.createdAt|date("F jS \\a\\t g:ia") }}
-                        </span>
+                        {{ reply.createdAt|date("F jS \\a\\t g:ia") }}
+                        <div class="pull-right">
+                            {% if is_granted("IS_AUTHENTICATED_FULLY") and app.user.username == thread.user.username and app.user.username != reply.user.username and not reply.praise %}
+                                <div class="praise">
+                                    <button class="btn btn-sm btn-success add-praise" data-reply-id="{{ reply.id }}"><strong>+</strong></button>
+                                    <div class="praise-message hidden" id="praise-message-{{ reply.id }}">
+                                        <form action="{{ path('app_praises_store', {'id': reply.id}) }}" method="POST">
+                                            <div class="form-group">
+                                                <label for="body">Message:</label>
+                                                <textarea class="form-control" name="body" id="body"></textarea>
+                                                <input type="hidden" name="token" value="{{ csrf_token('add-praise') }}" />
+                                            </div>
+                                            <button type="submit" class="btn btn-sm btn-primary">Add</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if reply.praise %}
+                                <div class="glyphicon glyphicon-ok"></div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="panel-body">
                         {{ reply.body }}
@@ -42,4 +60,20 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/build/css/threads.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const praiseButtons = document.querySelectorAll(".add-praise");
+        praiseButtons.forEach(button => {
+            button.addEventListener('click', event => {
+                const contenerId = `#praise-message-${event.target.dataset.replyId}`;
+                document.querySelector(contenerId).classList.toggle('hidden');
+            });
+        });
+    </script>
 {% endblock %}

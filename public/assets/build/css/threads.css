@@ -1,0 +1,20 @@
+.praise {
+  position: relative;
+}
+
+.praise .praise-message {
+  position: absolute;
+  z-index: 2;
+  background: #F5F5F5;
+  padding: 10px 20px;
+  border: 1px solid #828282;
+  right: 0;
+}
+
+.praise .praise-message textarea {
+  max-width: 200px;
+  min-width: 200px;
+}
+
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hc3NldHMvc2Fzcy90aHJlYWRzLnNhc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtDQUNEOztBQUZEO0VBR0k7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0NBR0g7O0FBWEQ7RUFVTTtFQUNBO0NBS0wiLCJmaWxlIjoiY3NzL3RocmVhZHMuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnByYWlzZSB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgLnByYWlzZS1tZXNzYWdlIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgei1pbmRleDogMjtcbiAgICBiYWNrZ3JvdW5kOiAjRjVGNUY1O1xuICAgIHBhZGRpbmc6IDEwcHggMjBweDtcbiAgICBib3JkZXI6IDFweCBzb2xpZCAjODI4MjgyO1xuICAgIHJpZ2h0OiAwO1xuICAgIHRleHRhcmVhIHtcbiAgICAgIG1heC13aWR0aDogMjAwcHg7XG4gICAgICBtaW4td2lkdGg6IDIwMHB4OyB9IH0gfVxuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vYXNzZXRzL3Nhc3MvdGhyZWFkcy5zYXNzIl0sInNvdXJjZVJvb3QiOiIifQ==*/

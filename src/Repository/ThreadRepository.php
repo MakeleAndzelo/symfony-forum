@@ -17,7 +17,7 @@ class ThreadRepository extends EntityRepository
     public function findAllOrderByUpdatedAt(int $page)
     {
         $query = $this->createQueryBuilder('thread')
-            ->orderBy('thread.updated_at', 'DESC')
+            ->orderBy('thread.updatedAt', 'DESC')
             ->getQuery();
 
         return $this->createPaginator($query, $page);
@@ -33,7 +33,7 @@ class ThreadRepository extends EntityRepository
         $query = $this->createQueryBuilder('thread')
             ->where('thread.channel = :channel')
             ->setParameter(':channel', $channel)
-            ->orderBy('thread.updated_at', 'DESC')
+            ->orderBy('thread.updatedAt', 'DESC')
             ->getQuery();
 
         return $this->createPaginator($query, $page);
@@ -49,7 +49,7 @@ class ThreadRepository extends EntityRepository
         $query = $this->createQueryBuilder('thread')
             ->where('thread.user = :user')
             ->setParameter(':user', $user)
-            ->orderBy('thread.updated_at', 'DESC')
+            ->orderBy('thread.updatedAt', 'DESC')
             ->getQuery();
 
         return $this->createPaginator($query, $page);

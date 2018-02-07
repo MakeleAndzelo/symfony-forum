@@ -27,7 +27,7 @@ class ReplyRepository extends EntityRepository
         return $this->createQueryBuilder('reply')
             ->where('reply.user = :user')
             ->setParameter(':user', $user)
-            ->orderBy('reply.updated_at', 'DESC')
+            ->orderBy('reply.updatedAt', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
             ->execute();

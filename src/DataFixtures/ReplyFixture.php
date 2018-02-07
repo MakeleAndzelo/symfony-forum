@@ -30,7 +30,6 @@ class ReplyFixture extends Fixture implements DependentFixtureInterface
             $reply->setThread(
                 $this->getReference('thread_' . rand(0, 49))
             );
-
             $manager->persist($reply);
         }
 

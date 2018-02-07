@@ -43,13 +43,18 @@ class Reply
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
-    private $updated_at;
+    private $updatedAt;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Praise", mappedBy="reply")
+     */
+    private $praise;
 
     /**
      * @return mixed
@@ -57,14 +62,6 @@ class Reply
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
     }
 
     /**
@@ -120,15 +117,15 @@ class Reply
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
-     * @param mixed $created_at
+     * @param mixed $createdAt
      */
-    public function setCreatedAt($created_at): void
+    public function setCreatedAt($createdAt): void
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -136,14 +133,30 @@ class Reply
      */
     public function getUpdatedAt()
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
-     * @param mixed $updated_at
+     * @param mixed $updatedAt
      */
-    public function setUpdatedAt($updated_at): void
+    public function setUpdatedAt($updatedAt): void
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPraise()
+    {
+        return $this->praise;
+    }
+
+    /**
+     * @param mixed $praise
+     */
+    public function setPraise($praise): void
+    {
+        $this->praise = $praise;
     }
 }

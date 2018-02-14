@@ -7,6 +7,7 @@ use App\Entity\Reply;
 use App\Entity\Thread;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Services\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,6 +36,7 @@ class UsersController extends Controller
 
     /**
      * @Route("/user/{username}", name="user_profile")
+     * @Method("GET")
      */
     public function show(User $user)
     {

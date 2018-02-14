@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Edit a user
+                </div>
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                        {{ form_errors(form) }}
+
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.avatar) }}
+
+                        {{ form_row(form.token) }}
+
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    {{ form_end(form, {'render_rest': false}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
